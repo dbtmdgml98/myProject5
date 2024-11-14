@@ -8,16 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User extends BaseEntity {
+@Table(name = "schedule")
+public class Schedule extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Mysql 사용
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String userName;
+    private String writer;
 
-    private String email;
+    @Column(nullable = false)
+    private String toDoTitle;
 
+    @Column(columnDefinition = "longtext")
+    private String toDoContents;
 }
