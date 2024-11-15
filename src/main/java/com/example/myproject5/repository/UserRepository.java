@@ -19,9 +19,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     default User findByIdOrElseThrow(Long id) {
         return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist id : " + id));
     }
-
-    Optional<User> findByUsername(String newUsername);
-    default User findByUsernameOrElseThrow(String newUsername) {
-        return findByUsername(newUsername).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist newUsername : " + newUsername));
-    }
 }
