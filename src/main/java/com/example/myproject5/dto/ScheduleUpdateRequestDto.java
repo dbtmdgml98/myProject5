@@ -4,14 +4,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class ScheduleUpdateRequestDto {
 
-    private final String newToDoTitle;
+    private final String toDoTitle;
 
-    private final String newToDoContents;
-
-    private final String newUsername;
+    private final String toDoContents;
 
 
+    public ScheduleUpdateRequestDto(String toDoTitle, String toDoContents) {
+        this.toDoTitle = toDoTitle;
+        this.toDoContents = toDoContents;
+    }
 }

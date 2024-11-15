@@ -23,7 +23,7 @@ public class UserService {
         User user = new User(username, email, password);
         User savedUser = userRepository.save(user);
 
-        return new UserSignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
+        return UserSignUpResponseDto.toDto(savedUser);
     }
 
     public UserResponseDto findById(Long id) {
@@ -39,7 +39,7 @@ public class UserService {
         // 요청한 id 값이 있다면
         User findUser = optionalUser.get();
 
-        return new UserResponseDto(findUser.getUsername(), findUser.getEmail());
+        return UserResponseDto.toDto(findUser);
     }
 
     public void delete(Long id) {

@@ -26,9 +26,7 @@ public class User extends BaseEntity {
     private String password;
 
     // 기본 생성자
-    public User() {
-
-    }
+    public User() {}
 
     public User(String username, String email, String password) {
         this.username = username;

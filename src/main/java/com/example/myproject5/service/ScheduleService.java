@@ -18,6 +18,7 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public ScheduleResponseDto save(String toDoTitle, String toDoContents, String username) {
 
         // 요청 userName을 갖는 유저 조회
@@ -29,42 +30,39 @@ public class ScheduleService {
         schedule.setUser(findUser);
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getToDoTitle(), savedSchedule.getToDoContents());
+        return ScheduleResponseDto.toDto(savedSchedule);
     }
 
     public List<ScheduleResponseDto> findAll() {
 
-        // 조회된 이 Schedule 리스트를 ScheduleResponseDto 리스트 형태로 반환 받을 수 있게 한다.
-       // List<Schedule> findAllSchedule = scheduleRepository.findAll();
-        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::toDto).toList();
+        // 조회된 'Schedule 리스트' findAllSchedule를 'ScheduleResponseDto 리스트' 형태로 변환하여 리턴한다.
+        List<Schedule> findAllSchedule = scheduleRepository.findAll();
+        return findAllSchedule.stream().map(ScheduleResponseDto::toDto).toList();
     }
 
     public ScheduleResponseDto findById(Long id) {
 
         // Schedule Entity가 아닌 Optional 형태로 반환이 되므로
-        // Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
+        //Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
 
         // scheduleRepository 내에서 default로 선언한 메서드를 사용하여 바로 Schedule Entity로 반환받는다! (id를 통해 특정 게시물 조회)
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
 
-        return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents());
+        return ScheduleResponseDto.toDto(findSchedule);
+        // 다른 방법
+        //return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents(), findSchedule.getCreatedAt(), findSchedule.getModifiedAt());
     }
 
     @Transactional
-    public ScheduleResponseDto update(Long id, String newToDoTitle, String newToToContents, String newUsername) {
+    public ScheduleResponseDto update(Long id, String toDoTitle, String toDoContents) {
 
         // 요청한 id로 해당 일정 조회
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
 
-        // userName을 newUserName으로 수정
-        User updateUsername = userRepository.updateByUsernameOrElseThrow(newUsername);
-
         // 일정에 제목, 내용, 이름 저장
-        findSchedule.setToDoTitle(newToDoTitle);
-        findSchedule.setToDoContents(newToToContents);
-        findSchedule.setUser(updateUsername);
+        findSchedule.update(toDoTitle, toDoContents);
 
-        return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents());
+        return ScheduleResponseDto.toDto(findSchedule);
     }
 
     public void delete(Long id) {
