@@ -17,13 +17,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserSignUpResponseDto signUp(String userName, String email, String password) {
+    public UserSignUpResponseDto signUp(String username, String email, String password) {
 
         // 요청 값들로 객체 생성 후 DB에 저장
-        User user = new User(userName, email, password);
+        User user = new User(username, email, password);
         User savedUser = userRepository.save(user);
 
-        return new UserSignUpResponseDto(savedUser.getId(), savedUser.getUserName(), savedUser.getEmail());
+        return new UserSignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
     }
 
     public UserResponseDto findById(Long id) {
@@ -39,7 +39,7 @@ public class UserService {
         // 요청한 id 값이 있다면
         User findUser = optionalUser.get();
 
-        return new UserResponseDto(findUser.getUserName(), findUser.getEmail());
+        return new UserResponseDto(findUser.getUsername(), findUser.getEmail());
     }
 
     public void delete(Long id) {

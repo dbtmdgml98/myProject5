@@ -11,7 +11,7 @@ public class ScheduleUpdateRequestDto {
 
     private final String newToDoContents;
 
-    private final String newUserName;
+    private final String newUsername;
 
 
 }

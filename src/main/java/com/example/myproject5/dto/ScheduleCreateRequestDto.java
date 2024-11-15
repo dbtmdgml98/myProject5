@@ -9,11 +9,11 @@ public class ScheduleCreateRequestDto {
 
     private final String toDoContents;
 
-    private final String userName;
+    private final String username;
 
-    public ScheduleCreateRequestDto(String toDoTitle, String toDoContents, String userName) {
+    public ScheduleCreateRequestDto(String toDoTitle, String toDoContents, String username) {
         this.toDoTitle = toDoTitle;
         this.toDoContents = toDoContents;
-        this.userName = userName;
+        this.username = username;
     }
 }

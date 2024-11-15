@@ -7,13 +7,13 @@ public class UserSignUpResponseDto {
 
     private final Long id;
 
-    private final String userName;
+    private final String username;
 
     private final String email;
 
-    public UserSignUpResponseDto(Long id, String userName, String email) {
+    public UserSignUpResponseDto(Long id, String username, String email) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
     }
 }

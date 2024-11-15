@@ -29,7 +29,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleCreateRequestDto requestDto) {
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.save(requestDto.getToDoTitle(), requestDto.getToDoContents(), requestDto.getUserName());
+        ScheduleResponseDto scheduleResponseDto = scheduleService.save(requestDto.getToDoTitle(), requestDto.getToDoContents(), requestDto.getUsername());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
@@ -56,7 +56,7 @@ public class ScheduleController {
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleUpdateRequestDto requestDto) {
 
-        ScheduleResponseDto updateSchedule = scheduleService.update(id, requestDto.getNewToDoTitle(), requestDto.getNewToDoContents(), requestDto.getNewUserName());
+        ScheduleResponseDto updateSchedule = scheduleService.update(id, requestDto.getNewToDoTitle(), requestDto.getNewToDoContents(), requestDto.getNewusername());
 
         return new ResponseEntity<>(updateSchedule, HttpStatus.OK);
     }

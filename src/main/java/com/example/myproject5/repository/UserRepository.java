@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // Optional
-    Optional<User> findUserByUserName(String userName);
+    Optional<User> findUserByUsername(String username);
 
     // default를 사용하여 인터페이스에 메서드 구현 (Optional이 아닌 User Entity로  반환된다!)
-    default User findUserByUserNameOrElseThrow(String userName) {
+    default User findUserByUsernameOrElseThrow(String username) {
 
-        return findUserByUserName(userName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist userName : " + userName));
+        return findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist username : " + username));
     }
 
     default User findByIdOrElseThrow(Long id) {
@@ -23,9 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
         return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist id : " + id));
     }
 
-    Optional<User> updateByUserName(String newUserName);
+    Optional<User> updateByUsername(String newUsername);
 
-    default User updateByUserNameOrElseThrow(String newUserName) {
-        return updateByUserName(newUserName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist newUserName : " + newUserName));
+    default User updateByUsernameOrElseThrow(String newUsername) {
+        return updateByUsername(newUsername).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist newUsername : " + newUsername));
     }
 }

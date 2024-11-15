@@ -18,10 +18,10 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-    public ScheduleResponseDto save(String toDoTitle, String toDoContents, String userName) {
+    public ScheduleResponseDto save(String toDoTitle, String toDoContents, String username) {
 
         // 요청 userName을 갖는 유저 조회
-        User findUser = userRepository.findUserByUserNameOrElseThrow(userName);
+        User findUser = userRepository.findUserByUsernameOrElseThrow(username);
 
         Schedule schedule = new Schedule(toDoTitle, toDoContents);
 
@@ -51,18 +51,18 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponseDto update(Long id, String newToDoTitle, String newToToContents, String newUserName) {
+    public ScheduleResponseDto update(Long id, String newToDoTitle, String newToToContents, String newUsername) {
 
         // 요청한 id로 해당 일정 조회
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
 
         // userName을 newUserName으로 수정
-        User updateUserName = userRepository.updateByUserNameOrElseThrow(newUserName);
+        User updateUsername = userRepository.updateByUsernameOrElseThrow(newUsername);
 
         // 일정에 제목, 내용, 이름 저장
         findSchedule.setToDoTitle(newToDoTitle);
         findSchedule.setToDoContents(newToToContents);
-        findSchedule.setUser(updateUserName);
+        findSchedule.setUser(updateUsername);
 
         return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents());
     }
