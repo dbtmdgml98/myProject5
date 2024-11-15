@@ -7,9 +7,9 @@ import com.example.myproject5.repository.ScheduleRepository;
 import com.example.myproject5.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +46,23 @@ public class ScheduleService {
 
         // scheduleRepository 내에서 default로 선언한 메서드를 사용하여 바로 Schedule Entity로 반환받는다! (id를 통해 특정 게시물 조회)
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents());
+    }
+
+    @Transactional
+    public ScheduleResponseDto update(Long id, String newToDoTitle, String newToToContents, String newUserName) {
+
+        // 요청한 id로 해당 일정 조회
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        // userName을 newUserName으로 수정
+        User updateUserName = userRepository.updateByUserNameOrElseThrow(newUserName);
+
+        // 일정에 제목, 내용, 이름 저장
+        findSchedule.setToDoTitle(newToDoTitle);
+        findSchedule.setToDoContents(newToToContents);
+        findSchedule.setUser(updateUserName);
 
         return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getToDoTitle(), findSchedule.getToDoContents());
     }

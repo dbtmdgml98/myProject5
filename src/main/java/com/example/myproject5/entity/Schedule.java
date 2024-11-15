@@ -45,4 +45,13 @@ public class Schedule extends BaseEntity{
         this.user = user;
     }
 
+    public void setToDoTitle(String toDoTitle) {
+        this.toDoTitle = toDoTitle;
+    }
+
+    public void setToDoContents(String toDoContents) {
+        this.toDoContents = toDoContents;
+    }
+
+
 }

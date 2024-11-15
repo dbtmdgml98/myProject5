@@ -2,12 +2,14 @@ package com.example.myproject5.controller;
 
 import com.example.myproject5.dto.ScheduleCreateRequestDto;
 import com.example.myproject5.dto.ScheduleResponseDto;
+import com.example.myproject5.dto.ScheduleUpdateRequestDto;
 import com.example.myproject5.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +50,15 @@ public class ScheduleController {
         ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
+    }
+
+    // 특정 일정 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleUpdateRequestDto requestDto) {
+
+        ScheduleResponseDto updateSchedule = scheduleService.update(id, requestDto.getNewToDoTitle(), requestDto.getNewToDoContents(), requestDto.getNewUserName());
+
+        return new ResponseEntity<>(updateSchedule, HttpStatus.OK);
     }
 
     // 특정 일정 삭제

@@ -22,4 +22,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
         return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist id : " + id));
     }
+
+    Optional<User> updateByUserName(String newUserName);
+
+    default User updateByUserNameOrElseThrow(String newUserName) {
+        return updateByUserName(newUserName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exist newUserName : " + newUserName));
+    }
 }
