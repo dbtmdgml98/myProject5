@@ -42,10 +42,14 @@ public class UserService {
         return UserResponseDto.toDto(findUser);
     }
 
-    public void delete(Long id) {
+    public void  delete(Long id) {
 
         User findUser = userRepository.findByIdOrElseThrow(id);
 
         userRepository.delete(findUser);
+    }
+
+    public User findUserById(Long userId) {
+        return userRepository.findByIdOrElseThrow(userId);
     }
 }

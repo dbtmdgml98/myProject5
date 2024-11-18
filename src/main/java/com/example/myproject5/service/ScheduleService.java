@@ -16,18 +16,16 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Transactional
-    public ScheduleResponseDto save(String toDoTitle, String toDoContents, String username) {
+    public ScheduleResponseDto save(Long userId, String toDoTitle, String toDoContents) {
 
         // 요청 userName을 갖는 유저 조회
-        User findUser = userRepository.findUserByUsernameOrElseThrow(username);
+        User findUser = userService.findUserById(userId);
 
-        Schedule schedule = new Schedule(toDoTitle, toDoContents);
+        Schedule schedule = new Schedule(findUser, toDoTitle, toDoContents);
 
-        // Schedule에 요청 정보 저장
-        schedule.setUser(findUser);
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
         return ScheduleResponseDto.toDto(savedSchedule);

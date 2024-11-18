@@ -34,13 +34,10 @@ public class Schedule extends BaseEntity{
     public Schedule() {}
 
     // 생성자 (자동생성되는 id와 참조하는 user는 제외)
-    public Schedule(String toDoTitle, String toDoContents) {
+    public Schedule(User user, String toDoTitle, String toDoContents) {
+        this.user = user;
         this.toDoTitle = toDoTitle;
         this.toDoContents = toDoContents;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void update(String toDoTitle, String toDoContents) {
