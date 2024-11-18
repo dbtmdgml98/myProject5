@@ -1,9 +1,13 @@
 package com.example.myproject5.controller;
 
+import com.example.myproject5.dto.LoginRequestDto;
 import com.example.myproject5.dto.UserResponseDto;
 import com.example.myproject5.dto.UserSignUpRequestDto;
 import com.example.myproject5.dto.UserSignUpResponseDto;
+import com.example.myproject5.entity.User;
 import com.example.myproject5.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +51,28 @@ public class UserController {
         userService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request) {
+        User loginedUser = userService.loginUser(loginRequestDto);
+
+        // 로그인 했으니까 Session 등록
+        HttpSession session = request.getSession();
+        session.setAttribute("SESSION_KEY", loginedUser.getId());
+
+        return new ResponseEntity<>("정상적으로 로그인되었습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        // 등록된 Session이 있으면 무효화
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return new ResponseEntity<>("정상적으로 로그아웃되었습니다.", HttpStatus.OK);
     }
 }

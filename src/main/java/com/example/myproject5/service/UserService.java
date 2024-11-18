@@ -1,5 +1,6 @@
 package com.example.myproject5.service;
 
+import com.example.myproject5.dto.LoginRequestDto;
 import com.example.myproject5.dto.UserResponseDto;
 import com.example.myproject5.dto.UserSignUpResponseDto;
 import com.example.myproject5.entity.User;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -52,4 +54,19 @@ public class UserService {
     public User findUserById(Long userId) {
         return userRepository.findByIdOrElseThrow(userId);
     }
+
+    public User loginUser(LoginRequestDto loginRequestDto) {
+
+        User user = userRepository.findByEmail(loginRequestDto.getEmail());
+
+        // 이메일이 없거나 비밀번호가 다른 경우
+        if (user == null || !Objects.equals(user.getPassword(), loginRequestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "유효하지 않은 사용자 이름 혹은 잘못된 비밀번호");
+        }
+
+        // 이메일, 비밀번호 맞는 경우
+        return user;
+
+    }
+
 }
