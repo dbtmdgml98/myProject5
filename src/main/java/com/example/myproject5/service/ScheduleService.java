@@ -4,7 +4,6 @@ import com.example.myproject5.dto.ScheduleResponseDto;
 import com.example.myproject5.entity.Schedule;
 import com.example.myproject5.entity.User;
 import com.example.myproject5.repository.ScheduleRepository;
-import com.example.myproject5.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
