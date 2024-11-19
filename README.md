@@ -55,6 +55,8 @@ Content-Type: application/json
 |id|String|Y|일정 고유 식별자|
 |toDoTitle|String|Y|할일 제목|
 |toDoContents|String|N|할일 내용|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -67,7 +69,9 @@ Content-Type: application/json
 {
     "id": 1,
     "toDoTitle": "제목",
-    "toDoContents": "내용"
+    "toDoContents": "내용",
+    "createdAt": "2024-11-18T20:55:09.198232",
+    "modifiedAt": "2024-11-18T20:55:09.198232"
 }
 ```
     
@@ -95,8 +99,11 @@ GET /api/schedules/{id}
 |파라미터|타입|필수여부|설명|
 |:---:|:---:|:---:|:-----:|
 |id|String|Y|일정 고유 식별자|
+|userId|String|Y|유저 고유 식별자|
 |toDoTitle|String|Y|할일 제목|
 |toDoContents|String|N|할일 내용|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -108,8 +115,11 @@ Content-Type: application/json
 ```json
 {
     "id": 1,
+    "userId": "1",
     "toDoTitle": "제목",
-    "toDoContents": "내용"
+    "toDoContents": "내용",
+    "createdAt": "2024-11-18T20:55:09.198232",
+    "modifiedAt": "2024-11-18T20:55:09.198232"
 }
 ```
 
@@ -140,6 +150,8 @@ GET /api/schedules
 |id|String|Y|일정 고유 식별자|
 |toDoTitle|String|Y|할일 제목|
 |toDoContents|String|N|할일 내용|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -153,13 +165,17 @@ Content-Type: application/json
     {
         "id": 1,
         "toDoTitle": "제목",
-        "toDoContents": "내용"
+        "toDoContents": "내용",
+        "createdAt": "2024-11-18T20:55:09.198232",
+        "modifiedAt": "2024-11-18T20:55:09.198232"
     },
 
     {
         "id": 2,
         "toDoTitle": "제목2",
-        "toDoContents": "내용2"
+        "toDoContents": "내용2",
+        "createdAt": "2024-11-18T20:55:09.198232",
+        "modifiedAt": "2024-11-18T20:55:09.198232"
     }
 ]
 ```
@@ -180,7 +196,7 @@ Content-Type: application/json
 |:---:|:---:|:---:|:-----:|
 |toDoTitle|String|N|할일 제목|
 |toDoContents|String|N|할일 내용|
-|userName|String|N|유저명|
+|username|String|N|유저명|
 
 
 - 참고사항
@@ -195,7 +211,7 @@ Content-Type: application/json
 {
     "toDoTitle": "수정된 제목",
     "toDoContents": "수정된 내용",
-    "userName": "김수정"
+    "username": "김수정"
 }
 ```
 
@@ -206,8 +222,11 @@ Content-Type: application/json
 |파라미터|타입|필수여부|설명|
 |:---:|:---:|:---:|:-----:|
 |id|String|Y|일정 고유 식별자|
+|userId|String|Y|유저 고유 식별자|
 |toDoTitle|String|Y|할일 제목|
 |toDoContents|String|N|할일 내용|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -219,8 +238,11 @@ Content-Type: application/json
 ```json
 {
     "id": 1,
+    "userId": 1,
     "toDoTitle": "수정된 제목",
-    "toDoContents": "수정된 내용"
+    "toDoContents": "수정된 내용",
+    "createdAt": "2024-11-19T20:14:13.012858",
+    "modifiedAt": "2024-11-19T20:19:35.73462"
 }
 ```
     
@@ -334,7 +356,7 @@ DELETE FROM schedule WHERE id = 1;
 
 |파라미터|타입|필수여부|설명|
 |:---:|:---:|:---:|:-----:|
-|userName|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
+|username|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
 |email|String|Y|유저 이메일 (255자를 넘을 수 없습니다.)|
 |password|String|Y|유저 비밀번호 (255자를 넘을 수 없습니다.)|
 
@@ -349,7 +371,7 @@ Content-Type: application/json
 ```json
 
 {
-    "userName" : "홍길동",
+    "username" : "홍길동",
     "email" : "a@a.com",
     "password" : "1234"
 }
@@ -362,8 +384,10 @@ Content-Type: application/json
 |파라미터|타입|필수여부|설명|
 |:---:|:---:|:---:|:-----:|
 |id|String|Y|유저 고유 식별자|
-|userName|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
+|username|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
 |email|String|Y|유저 이메일 (255자를 넘을 수 없습니다.)|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -375,8 +399,10 @@ Content-Type: application/json
 ```json
 {
     "id": 1,
-    "userName": "홍길동",
-    "email": "a@a.com"
+    "username": "홍길동",
+    "email": "a@a.com",
+    "createdAt": "2024-11-19T20:13:50.565306",
+    "modifiedAt": "2024-11-19T20:13:50.565306"
 }
 ```
 
@@ -404,8 +430,11 @@ GET /api/users/{id}
 
 |파라미터|타입|필수여부|설명|
 |:---:|:---:|:---:|:-----:|
-|userName|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
+|id|String|Y|유저 고유 식별자|
+|username|String|Y|유저 이름 (255자를 넘을 수 없습니다.)|
 |email|String|Y|유저 이메일 (255자를 넘을 수 없습니다.)|
+|createdAt|LocalDateTime|Y|생성일|
+|modifiedAt|LocalDateTime|Y|수정일|
 
 - 참고사항
   
@@ -414,8 +443,11 @@ HTTP/1.1 200 OK
 - 응답 예시
 ```json
 {
-    "userName": "홍길동",
-    "email": "a@a.com"
+    "id": 1,
+    "username": "홍길동",
+    "email": "a@a.com",
+    "createdAt": "2024-11-19T20:13:50.565306",
+    "modifiedAt": "2024-11-19T20:13:50.565306"
 }
 ```
 
@@ -455,7 +487,7 @@ HTTP/1.1 200 OK
 CREATE TABLE user
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '유저 고유 식별자',
-    user_name VARCHAR(255) NOT NULL COMMENT '유저명',
+    username VARCHAR(255) NOT NULL COMMENT '유저명',
     created_at DATETIME(6) COMMENT '작성일',
     modified_at DATETIME(6) COMMENT '수정일',
     email VARCHAR(255) COMMENT '유저 이메일',
@@ -467,8 +499,8 @@ CREATE TABLE user
 ### INSERT (유저 등록)
 ```mysql
 -- user 테이블에 데이터 삽입
-INSERT INTO user (id, user_name, created_at, modified_at, email, password) VALUES('1', '홍길동', '2024-11-15', '2024-11-16', 'a@a.com', '1234');
-INSERT INTO user (id, user_name, created_at, modified_at, email, password) VALUES('2', '김길동', '2024-11-01', '2024-11-06', 'b@b.com', '1234');
+INSERT INTO user (id, username, created_at, modified_at, email, password) VALUES('1', '홍길동', '2024-11-15', '2024-11-16', 'a@a.com', '1234');
+INSERT INTO user (id, username, created_at, modified_at, email, password) VALUES('2', '김길동', '2024-11-01', '2024-11-06', 'b@b.com', '1234');
 ```
 
 ### SELECT (특정 유저 조회)
