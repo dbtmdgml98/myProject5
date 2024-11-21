@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,8 +34,28 @@ public class ScheduleService {
     public List<ScheduleResponseDto> findAll() {
 
         // 조회된 'Schedule 리스트' findAllSchedule를 'ScheduleResponseDto 리스트' 형태로 변환하여 리턴한다.
+        // 컨트롤러로 반환할 'ScheduleResponseDto 리스트'를 생성한 다음 주입받아온 레포지토리를 사용해서 DB에서 'Schedule 리스트'를 조회하여 findAllSchedule 변수에 넣은 다음, 하나씩 반복해서 스케줄을 꺼내와 그 스케줄을 ScheduleResponseDto 타입의 객체로 변환하여 그 변환된 객체를 ScheduleResponseDto 리스트에 추가하고 최종적으로 만들어진 리스트를 반환한다.
+
+        List<ScheduleResponseDto> scheduleResponseDtoList = new ArrayList<>();
+
         List<Schedule> findAllSchedule = scheduleRepository.findAll();
-        return findAllSchedule.stream().map(ScheduleResponseDto::toDto).toList();
+        for (Schedule schedule : findAllSchedule) {
+            ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(
+                    schedule.getId(),
+                    schedule.getUser().getId(),
+                    schedule.getToDoTitle(),
+                    schedule.getToDoContents(),
+                    schedule.getCreatedAt(),
+                    schedule.getModifiedAt()
+            );
+
+            scheduleResponseDtoList.add(scheduleResponseDto);
+        }
+
+        return scheduleResponseDtoList;
+
+       // return findAllSchedule.stream().map(ScheduleResponseDto::toDto).toList();
+
     }
 
     public ScheduleResponseDto findById(Long id) {
